@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import logo from './logo.svg'
 import './App.css';
-
+import { BrowserRouter } from 'react-router-dom';
+import RoutesList from './RoutesList';
+import Navigation from './Navigation';
 
 /** Component for entire page.
  *
@@ -11,7 +11,16 @@ import './App.css';
 */
 
 function App() {
-
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Navigation />
+                <div>
+                    <RoutesList />
+                </div>
+            </BrowserRouter>
+        </div>
+    );
 };
 
 export default App;
