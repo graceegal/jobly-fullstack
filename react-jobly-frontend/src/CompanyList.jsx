@@ -46,12 +46,9 @@ function CompanyList() {
 
     console.log("companies", companies);
     return (
-        <div className="Company-list">
+        <div className="CompanyList col-md-8 offset-md-2">
             <SearchForm />
-            <CompanyCard />
-            <CompanyCard />
-            <CompanyCard />
-            <CompanyCard />
+            <CompanyCard company={companies.data[0]}/>
         </div>
     );
 }
