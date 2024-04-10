@@ -3,6 +3,7 @@ import CompanyDetail from "./CompanyDetail";
 import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import Homepage from "./Homepage";
+import NotFound from "./NotFound";
 
 /**
  * RoutesList
@@ -11,7 +12,7 @@ import Homepage from "./Homepage";
  *
  * props: none
  *
- * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage}
+ * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage, NotFound}
  *
  */
 
@@ -23,7 +24,7 @@ function RoutesList() {
             <Route path="/companies" element={<CompanyList />} />
             <Route path="/companies/:handle" element={<CompanyDetail />} />
             <Route path="/jobs" element={<JobList />} />
-            <Route path="/*" element={<Navigate to="/" />} />
+            <Route path="/*" element={<NotFound />} />
         </Routes>
     );
 }

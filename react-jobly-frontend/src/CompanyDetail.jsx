@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import JobCardList from "./JobCardList";
 import { useParams } from "react-router-dom";
 import JoblyApi from "./api";
+import NotFound from "./NotFound";
 
 /**
  * CompanyDetail
@@ -9,7 +10,8 @@ import JoblyApi from "./api";
  * state:
  *  - company: { handle, name, description, numEmployees, logoUrl, jobs }
  *              where jobs is [{ id, title, salary, equity }, ...]
- *
+ * - errors: []
+
  * props: none
  *
  *
@@ -21,6 +23,7 @@ function CompanyDetail() {
     console.log("Rendered CompanyDetail");
 
     const [company, setCompany] = useState({ data: null, isLoading: true });
+    const [errors, setErrors] = useState([]);
 
     const { handle } = useParams();
 
@@ -28,19 +31,21 @@ function CompanyDetail() {
     useEffect(function fetchCompanyDetailsWhenMounted() {
         console.log("Inside CompanyDetails useEffect function.");
         async function fetchCompanyDetails() {
-            const data = await JoblyApi.getCompany(handle);
+            let data;
+            try {
+                data = await JoblyApi.getCompany(handle);
+            } catch (error) {
+                setErrors(error);
+            }
             setCompany({ data: data, isLoading: false });
-        }
-        try {
-            fetchCompanyDetails();
-        } catch (error) {
-            return <Navigate to="/companies" />;
-        }
+        };
         fetchCompanyDetails();
     }, []
     );
 
-    console.log("company.data", company.data);
+    if (errors.length > 0) {
+        return <NotFound message="Company not found."/>;
+    }
 
     if (company.isLoading) return <i>Loading...</i>;
 

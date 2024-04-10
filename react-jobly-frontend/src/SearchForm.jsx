@@ -34,8 +34,8 @@ function SearchForm({ handleSave }) {
     function handleSubmit(evt) {
         evt.preventDefault();
         const searchStr = formData.searchTerm.trim();
-        console.log("searchStr", searchStr);
         handleSave(searchStr);
+        // TODO: don't need to reset formData
         setFormData({ searchTerm: "" });
     }
 

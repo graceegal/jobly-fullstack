@@ -17,6 +17,8 @@ import JoblyApi from "./api";
  *
  */
 
+// TODO: move rendered console logs under state and add console.logs for every state
+
 function JobList() {
     console.log("Rendered JobList");
 
@@ -28,7 +30,7 @@ function JobList() {
 
     /** Updates jobs state to fetched job data when component is mounted or
      * a search is submitted */
-    useEffect(function fetchJobsWhenMounted() {
+    useEffect(function fetchJobsData() {
         console.log("Inside of JobList useEffect function");
         async function fetchJobs() {
             const data = await JoblyApi.getJobs(searchTerm);

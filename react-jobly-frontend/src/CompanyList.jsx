@@ -35,7 +35,7 @@ function CompanyList() {
 
     /** Updates companies state to fetched company data when component is mounted or
      * a search is submitted */
-    useEffect(function fetchCompaniesWhenMounted() {
+    useEffect(function fetchCompaniesData() {
         console.log("Inside of CompanyList useEffect function");
         async function fetchCompanies() {
             const data = await JoblyApi.getCompanies(searchTerm);
