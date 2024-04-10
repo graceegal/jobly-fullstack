@@ -6,7 +6,10 @@ import Navigation from './Navigation';
 /** Component for entire page.
  *
  * Props: none
+ * 
  * State: none
+ *
+ * App -> { RoutesList, Navigation }
  *
 */
 

@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
  *
@@ -52,7 +52,14 @@ class JoblyApi {
     return res.company;
   }
 
-  // obviously, you'll add a lot here ...
+  /** Get list of companies, with optional filter that takes in searchTerm  */
+
+  static async getCompanies(searchTerm) {
+    let res = await this.request(`companies/?nameLike=${searchTerm}`);
+    return res.companies;
+  }
+
+
 }
 
 export default JoblyApi;

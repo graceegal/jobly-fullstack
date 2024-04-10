@@ -4,6 +4,17 @@ import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import Homepage from "./Homepage";
 
+/**
+ * RoutesList
+ *
+ * state: none
+ *
+ * props: none
+ *
+ * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage}
+ *
+ */
+
 function RoutesList() {
     return (
         <Routes>

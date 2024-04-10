@@ -1,16 +1,26 @@
 import { NavLink } from "react-router-dom";
 import "./Navigation.css"
 
-function Navigation(){
+/** Navigation Bar.
+ *
+ * Props: none
+ *
+ * State: none
+ *
+ * App -> Navigation
+ *
+*/
+
+function Navigation() {
     return (
-        <nav className="Navigation">
-            <div className="Navigation-home">
-            <NavLink className="active" to="/" >Jobly</NavLink>
+        <nav className="Navigation navbar bg-body-tertiary">
+            <div className="Navigation-home container-fluid">
+                <NavLink className="active navbar-brand" to="/" >Jobly</NavLink>
+                <NavLink className="nav-link" to="/companies" end>Companies</NavLink>
+                <NavLink className="nav-link" to="/jobs" end>Jobs</NavLink>
             </div>
-            <NavLink to="/companies" end>Companies</NavLink>
-            <NavLink to="/jobs" end>Jobs</NavLink>
         </nav>
-    )
+    );
 }
 
 export default Navigation;

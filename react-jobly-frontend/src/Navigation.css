@@ -1,4 +1,4 @@
-nav {
+/* nav {
   background-color: white;
   text-align: center;
   font-weight: bold;
@@ -11,19 +11,15 @@ nav a {
   color: darkgray;
   text-decoration: none;
   float: right;
-}
+} */
 
 nav a.active {
   color: rgb(53, 53, 53);
-  font-style: bold;
+  font-weight: bold;
   text-decoration: none;
 }
 
 nav a:hover {
   color: black;
   text-decoration: none;
-}
-
-nav .Navigation-home {
-  float: left;
 }
