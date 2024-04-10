@@ -19,14 +19,15 @@ import "./CompanyCard.css"
  */
 
 function CompanyCard({ company }) {
-    console.log("company", company);
+    const {name, logoUrl, description} = company
+
     return (
-        <Link to={`/companies/${company.name}`} className="CompanyCard-link" >
+        <Link to={`/companies/${name}`} className="CompanyCard-link" >
             <div className="card CompanyCard-card">
                     <div className="card-body">
-                        <img src={company.logoUrl} className="float-end" alt={company.name} />
-                        <h5 className="card-title">{company.name}</h5>
-                        <p className="card-text">{company.description}</p>
+                        <img src={logoUrl} className="float-end" alt={name} />
+                        <h5 className="card-title">{name}</h5>
+                        <p className="card-text">{description}</p>
                     </div>
             </div>
         </Link>
