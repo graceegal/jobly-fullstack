@@ -13,7 +13,7 @@
  *
  */
 
-function JobCard({job}) {
+function JobCard({ job }) {
     console.log("Rendered JobCard");
     const { title, companyName, salary, equity } = job;
 

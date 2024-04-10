@@ -23,7 +23,7 @@ function JobCardList({ jobs }) {
                         <JobCard job={j} />
                     </div>
                 ))
-                : <p>Sorry, no results were found!</p>}
+                : <p className="d-flex justify-content-center my-3">Sorry, no results were found!</p>}
         </div>
     );
 }

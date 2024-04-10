@@ -25,7 +25,7 @@ function RoutesList() {
             <Route path="/jobs" element={<JobList />} />
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
-    )
+    );
 }
 
 export default RoutesList;

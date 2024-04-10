@@ -18,22 +18,29 @@ import JoblyApi from "./api";
  */
 
 function CompanyDetail() {
-    console.log("Rendered CompanyDetail")
+    console.log("Rendered CompanyDetail");
 
-    const [company, setCompany] = useState({data: null, isLoading: true});
+    const [company, setCompany] = useState({ data: null, isLoading: true });
 
-    const {handle} = useParams();
+    const { handle } = useParams();
 
     /** Updates company state to fetched company data when component is mounted */
     useEffect(function fetchCompanyDetailsWhenMounted() {
         console.log("Inside CompanyDetails useEffect function.");
         async function fetchCompanyDetails() {
-            const data = await JoblyApi.getCompany(handle)
-            setCompany({data: data, isLoading: false});
+            const data = await JoblyApi.getCompany(handle);
+            setCompany({ data: data, isLoading: false });
+        }
+        try {
+            fetchCompanyDetails();
+        } catch (error) {
+            return <Navigate to="/companies" />;
         }
         fetchCompanyDetails();
     }, []
-    )
+    );
+
+    console.log("company.data", company.data);
 
     if (company.isLoading) return <i>Loading...</i>;
 
@@ -41,9 +48,9 @@ function CompanyDetail() {
         <div className="col-md-8 offset-md-2 pt-5">
             <h4>{company.data.name}</h4>
             <p>{company.data.description}</p>
-            <JobCardList jobs={company.data.jobs}/>
+            <JobCardList jobs={company.data.jobs} />
         </div>
-    )
+    );
 }
 
 export default CompanyDetail;

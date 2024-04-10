@@ -55,13 +55,16 @@ class JoblyApi {
   /** Get list of companies, with optional filter that takes in searchTerm  */
 
   static async getCompanies(searchTerm) {
-    const searchTermParam = searchTerm ? {nameLike: searchTerm} : {};
+    const searchTermParam = searchTerm ? { nameLike: searchTerm } : {};
     let res = await this.request("companies", searchTermParam);
     return res.companies;
   }
 
+
+  /** Get list of jobs, with optional filter that takes in searchTerm  */
+
   static async getJobs(searchTerm) {
-    const searchTermParam = searchTerm ? {title: searchTerm} : {};
+    const searchTermParam = searchTerm ? { title: searchTerm } : {};
     let res = await this.request("jobs", searchTermParam);
     return res.jobs;
   }

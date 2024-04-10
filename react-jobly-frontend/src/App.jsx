@@ -14,17 +14,17 @@ import Navigation from './Navigation';
 */
 
 function App() {
-    console.log("Rendered App");
-    return (
-        <div className="App">
-            <BrowserRouter>
-                <Navigation />
-                <div>
-                    <RoutesList />
-                </div>
-            </BrowserRouter>
+  console.log("Rendered App");
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navigation />
+        <div>
+          <RoutesList />
         </div>
-    );
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default App;

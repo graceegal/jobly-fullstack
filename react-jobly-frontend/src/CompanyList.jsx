@@ -69,7 +69,7 @@ function CompanyList() {
                         <CompanyCard company={c} />
                     </Link>
                 ))
-                : <p>Sorry, no result were found!</p>
+                : <p className="d-flex justify-content-center my-3">Sorry, no results were found!</p>
             }
         </div>
     );

@@ -4,7 +4,7 @@ import { useState } from "react";
  * SearchForm
  *
  * state:
- *  - formData
+ *  - formData { searchTerm: ""}
  *
  * props:
  *  - handleSave()
@@ -15,10 +15,13 @@ import { useState } from "react";
  */
 
 function SearchForm({ handleSave }) {
+    console.log("Rendered SearchForm");
+
     const [formData, setFormData] = useState({
         searchTerm: ""
     });
 
+    /** update form inputs */
     function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData(fData => ({
@@ -27,6 +30,7 @@ function SearchForm({ handleSave }) {
         }));
     }
 
+    /** call parent function and reset form inputs */
     function handleSubmit(evt) {
         evt.preventDefault();
         const searchStr = formData.searchTerm.trim();
