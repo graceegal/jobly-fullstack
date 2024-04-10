@@ -16,3 +16,8 @@
 .App-link {
   color: darkgray;
 } */
+
+.App {
+  background-img: /background-img;
+  background-attachment: fixed;
+}
