@@ -60,6 +60,12 @@ class JoblyApi {
     return res.companies;
   }
 
+  static async getJobs(searchTerm) {
+    const searchTermParam = searchTerm ? {title: searchTerm} : {};
+    let res = await this.request("jobs", searchTermParam);
+    return res.jobs;
+  }
+
 }
 
 export default JoblyApi;

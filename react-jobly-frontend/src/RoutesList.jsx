@@ -16,11 +16,12 @@ import Homepage from "./Homepage";
  */
 
 function RoutesList() {
+    console.log("Rendered RoutesList");
     return (
         <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/companies" element={<CompanyList />} />
-            <Route path="/companies/:name" element={<CompanyDetail />} />
+            <Route path="/companies/:handle" element={<CompanyDetail />} />
             <Route path="/jobs" element={<JobList />} />
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>

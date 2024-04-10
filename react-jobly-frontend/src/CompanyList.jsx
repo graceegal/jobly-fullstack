@@ -16,7 +16,7 @@ import SearchForm from "./SearchForm";
  *                      logoUrl: }
  *                      , {...} ],
  *              isLoading: boolean}
- *  - searchTerm ("string")
+ *  - searchTerm ("searchTerm")
  *
  * props: none
  *
@@ -33,6 +33,8 @@ function CompanyList() {
     });
     const [searchTerm, setSearchTerm] = useState(null);
 
+    /** Updates companies state to fetched company data when component is mounted or
+     * a search is submitted */
     useEffect(function fetchCompaniesWhenMounted() {
         console.log("Inside of CompanyList useEffect function");
         async function fetchCompanies() {
@@ -45,6 +47,7 @@ function CompanyList() {
         fetchCompanies();
     }, [searchTerm]);
 
+    /** Updates searchTerm state with the submitted search term */
     function updateSearchTerm(searchTerm) {
         setSearchTerm(searchTerm);
     }
@@ -54,20 +57,20 @@ function CompanyList() {
     return (
         <div className="CompanyList col-md-8 offset-md-2">
             <SearchForm handleSave={updateSearchTerm} />
-            {searchTerm
-                ? <h1>{`Search Results for "${searchTerm}"`}</h1>
-                : <h1>All Companies</h1>
-            }
+            <div className="d-flex justify-content-center my-3">
+                {searchTerm
+                    ? <h1>{`Search Results for "${searchTerm}"`}</h1>
+                    : <h1>All Companies</h1>
+                }
+            </div>
             {companies.data.length > 0
                 ? companies.data.map(c => (
-                        <Link to={`/companies/${c.name}`} key={c.handle} className="CompanyCard-link" >
-                            <CompanyCard company={c} />
-                        </Link>
-                    ))
+                    <Link to={`/companies/${c.handle}`} key={c.handle} className="CompanyCard-link" >
+                        <CompanyCard company={c} />
+                    </Link>
+                ))
                 : <p>Sorry, no result were found!</p>
             }
-
-
         </div>
     );
 }

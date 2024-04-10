@@ -44,7 +44,7 @@ function SearchForm({ handleSave }) {
                 onChange={handleChange}
                 placeholder="Enter search term..." />
             <button
-                className="btn btn-lg btn-primary SearchForm-btn"
+                className="btn btn-lg btn-primary SearchForm-btn ms-2"
                 type="submit"
                 onClick={handleSubmit}>
                 Submit

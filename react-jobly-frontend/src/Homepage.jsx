@@ -12,6 +12,7 @@
  */
 
 function Homepage() {
+    console.log("Rendered Homepage");
     return (
         <div>
             Homepage

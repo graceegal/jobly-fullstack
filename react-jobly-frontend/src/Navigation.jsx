@@ -12,6 +12,7 @@ import "./Navigation.css"
 */
 
 function Navigation() {
+    console.log("Rendered Navigation");
     return (
         <nav className="Navigation navbar bg-body-tertiary">
             <div className="Navigation-home container-fluid">

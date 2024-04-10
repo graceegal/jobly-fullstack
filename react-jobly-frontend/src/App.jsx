@@ -6,7 +6,7 @@ import Navigation from './Navigation';
 /** Component for entire page.
  *
  * Props: none
- * 
+ *
  * State: none
  *
  * App -> { RoutesList, Navigation }
@@ -14,6 +14,7 @@ import Navigation from './Navigation';
 */
 
 function App() {
+    console.log("Rendered App");
     return (
         <div className="App">
             <BrowserRouter>

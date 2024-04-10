@@ -6,22 +6,27 @@ import JobCard from "./JobCard";
  * state: none
  *
  * props:
- *  - jobs [ {}, {}, ...]
+ *  - jobs [ {id, title, salary, equity, companyHandle?, companyName?}, ...]
  *
  *
  * { JobList, CompanyDetail} -> JobCardList -> JobCard
  *
  */
 
-function JobCardList() {
+function JobCardList({ jobs }) {
+    console.log("Rendered JobCardList");
     return (
         <div>
-            Job Card List
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {jobs.length > 0
+                ? jobs.map(j => (
+                    <div key={j.id} >
+                        <JobCard job={j} />
+                    </div>
+                ))
+                : <p>Sorry, no results were found!</p>}
         </div>
     );
 }
 
 export default JobCardList;
+
