@@ -25,6 +25,7 @@ import SearchForm from "./SearchForm";
  */
 
 function CompanyList() {
+    console.log("Rendered CompanyList");
     const [companies, setCompanies] = useState({
         data: null,
         isLoading: true

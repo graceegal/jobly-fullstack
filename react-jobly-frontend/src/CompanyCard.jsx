@@ -19,6 +19,7 @@ import "./CompanyCard.css"
  */
 
 function CompanyCard({ company }) {
+    console.log("Rendered CompanyCard");
     const {name, logoUrl, description} = company
 
     return (
