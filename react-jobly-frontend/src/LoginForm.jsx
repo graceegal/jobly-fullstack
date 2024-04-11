@@ -18,8 +18,8 @@ function LoginForm({ handleSave }) {
     console.log("Rendered LoginForm");
 
     const [formData, setFormData] = useState({
-        username: "",
-        password: ""
+        username: "testuser",
+        password: "password"
     });
 
     /** update form inputs */

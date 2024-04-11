@@ -12,9 +12,11 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = null;
+
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+  //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+  //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
   static async request(endpoint, data = {}, method = "GET") {
     const url = new URL(`${BASE_URL}/${endpoint}`);
@@ -48,7 +50,7 @@ class JoblyApi {
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
+    const res = await this.request(`companies/${handle}`);
     return res.company;
   }
 
@@ -56,7 +58,7 @@ class JoblyApi {
 
   static async getCompanies(searchTerm) {
     const searchTermParam = searchTerm ? { nameLike: searchTerm } : {};
-    let res = await this.request("companies", searchTermParam);
+    const res = await this.request("companies", searchTermParam);
     return res.companies;
   }
 
@@ -65,7 +67,7 @@ class JoblyApi {
 
   static async getJobs(searchTerm) {
     const searchTermParam = searchTerm ? { title: searchTerm } : {};
-    let res = await this.request("jobs", searchTermParam);
+    const res = await this.request("jobs", searchTermParam);
     return res.jobs;
   }
 
@@ -73,15 +75,22 @@ class JoblyApi {
    * JWT token */
 
   static async login({ username, password }) {
-    let res = await this.request("auth/token", { username, password }, "POST");
+    const res = await this.request("auth/token", { username, password }, "POST");
     return res.token;
   }
 
   /** Signup new user and validates request; if valid, returns JWT token */
 
   static async signup({ username, password, firstName, lastName, email }) {
-    let res = await this.request("auth/register", { username, password, firstName, lastName, email }, "POST");
+    const res = await this.request("auth/register", { username, password, firstName, lastName, email }, "POST");
     return res.token;
+  }
+
+  /** Gets user data given a username */
+
+  static async getUser(username) {
+    const res = await this.request(`users/${username}`);
+    return res.user;
   }
 
 }

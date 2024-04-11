@@ -19,7 +19,7 @@ import LoginForm from "./LoginForm";
  *
  */
 
-function RoutesList() {
+function RoutesList({ handleLogin, handleSignup, errors }) {
     console.log("Rendered RoutesList");
     return (
         <Routes>
@@ -28,8 +28,10 @@ function RoutesList() {
             <Route path="/companies/:handle" element={<CompanyDetail />} />
             <Route path="/jobs" element={<JobList />} />
             <Route path="/profile" element={<ProfileForm />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/login" element={
+                <LoginForm handleSave={handleLogin} errors={errors} />} />
+            <Route path="/signup" element={
+                <SignupForm handleSave={handleSignup} errors={errors} />} />
             <Route path="/*" element={<NotFound />} />
         </Routes>
     );
