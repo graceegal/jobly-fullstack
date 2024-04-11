@@ -4,6 +4,10 @@ import RoutesList from './RoutesList';
 import Navigation from './Navigation';
 import { useEffect, useState } from 'react';
 import userContext from "./userContext";
+import JoblyApi from './api';
+
+const EMPTY_CURR_USER = { username: null, firstName: null, lastName: null, email: null, isAdmin: null };
+
 
 /** Component for entire page.
  *
@@ -15,51 +19,64 @@ import userContext from "./userContext";
  *
 */
 
+
 function App() {
-    const [currUser, setCurrUser] = useState({ userData: null, isLoading: true });
-    const [token, setToken] = useState({token: null, isLoading: true});
-    const [loginData, setLoginData] = useState(null);
-    const [signupData, setSignupData] = useState(null);
-    console.log("Rendered App");
+  const [currUser, setCurrUser] = useState({ userData: EMPTY_CURR_USER, isLoading: false });
+  const [token, setToken] = useState({ token: null, isLoading: false });
+  const [errors, setErrors] = useState(null);
+  console.log("Rendered App");
 
-
-    // get user data from handleAuth
-    // update login/signup Data state
-    // useEffect uses user data to make API login/signup call
-    // if good credentials, update context
-    // if bad credentials, set errors, don't update context, clear user state
-
-    /** Sets loginData state with user inputs from login form */
-    function handleLogin(formData) {
-        setLoginData(formData);
+  /** Make API call to login using user inputs from login form;
+   * update token state and currUser state with username if valid request,
+   * otherwise update errors state
+  */
+  async function handleLogin(formData) {
+    let token = null;
+    setToken({ token: token, isLoading: true });
+    try {
+      token = await JoblyApi.login(formData);
+      setCurrUser(curr => (
+        { userData: { ...curr.userData, username: formData.username }, isLoading: false }
+      ));
+    } catch (error) {
+      setErrors(error);
     }
+    JoblyApi.token = token;
+    setToken({ token: token, isLoading: false });
+  }
 
-    /** Sets signupData state with user inputs from signup form */
-    function handleSignup(formData) {
-        setSignupData(formData);
+  /** Make API call to signup new user using inputs from signup form;
+   * update token state and currUser state with username if valid request,
+   * otherwise update errors state
+  */
+  async function handleSignup(formData) {
+    let token = null;
+    setToken({ token: token, isLoading: true });
+    try {
+      token = await JoblyApi.signup(formData);
+      setCurrUser(curr => (
+        { userData: { ...curr.userData, username: formData.username }, isLoading: false }
+      ));
+    } catch (error) {
+      setErrors(error);
     }
+    JoblyApi.token = token;
+    setToken({ token: token, isLoading: false });
+  }
+  
 
-    async function signup() {
-
-    }
-
-
-
-
-
-
-    return (
-        <div className="App">
-            <userContext.Provider value={{ user: currUser }}>
-                <BrowserRouter>
-                    <Navigation />
-                    <div>
-                        <RoutesList />
-                    </div>
-                </BrowserRouter>
-            </userContext.Provider>
-        </div>
-    );
+  return (
+    <div className="App">
+      <userContext.Provider value={{ user: currUser }}>
+        <BrowserRouter>
+          <Navigation />
+          <div>
+            <RoutesList />
+          </div>
+        </BrowserRouter>
+      </userContext.Provider>
+    </div>
+  );
 };
 
 export default App;

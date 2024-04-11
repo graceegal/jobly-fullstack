@@ -23,7 +23,7 @@ function CompanyDetail() {
     console.log("Rendered CompanyDetail");
 
     const [company, setCompany] = useState({ data: null, isLoading: true });
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(null);
 
     const { handle } = useParams();
 
@@ -43,7 +43,7 @@ function CompanyDetail() {
     }, []
     );
 
-    if (errors.length > 0) {
+    if (errors) {
         return <NotFound message="Company not found."/>;
     }
 

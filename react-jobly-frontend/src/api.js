@@ -69,6 +69,21 @@ class JoblyApi {
     return res.jobs;
   }
 
+  /** Authenticates user's login credentials; if authenticated, returns
+   * JWT token */
+
+  static async login({ username, password }) {
+    let res = await this.request("auth/token", { username, password }, "POST");
+    return res.token;
+  }
+
+  /** Signup new user and validates request; if valid, returns JWT token */
+
+  static async signup({ username, password, firstName, lastName, email }) {
+    let res = await this.request("auth/register", { username, password, firstName, lastName, email }, "POST");
+    return res.token;
+  }
+
 }
 
 export default JoblyApi;
