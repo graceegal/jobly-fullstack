@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Alert from "./Alert";
 
 /**
  * LoginForm
@@ -10,11 +11,11 @@ import { useState } from "react";
  *  - handleSave()
  *
  *
- * TODO: -> LoginForm
+ * RoutesList -> LoginForm
  *
  */
 
-function LoginForm({ handleSave }) {
+function LoginForm({ handleSave, errors }) {
     console.log("Rendered LoginForm");
 
     const [formData, setFormData] = useState({
@@ -38,43 +39,53 @@ function LoginForm({ handleSave }) {
     }
 
     return (
-        <div>
-            <h3>Log In</h3>
-            <form className="LoginForm-form my-3">
+        <div className="container col-9">
+            <h3 className="mt-4">Log In</h3>
+            <div className="card p-3">
+                <form className="LoginForm-form">
 
-                <label
-                    className="LoginForm-label-username form-label"
-                    htmlFor="username">
-                    Username
-                </label>
-                <input
-                    className="LoginForm-input-username col-9 form-control-lg"
-                    name="username"
-                    id="username"
-                    value={formData.username}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="LoginForm-label-username form-label"
+                            htmlFor="username">
+                            <b>Username</b>
+                        </label>
+                        <input
+                            className="LoginForm-input-username form-control"
+                            name="username"
+                            id="username"
+                            value={formData.username}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="LoginForm-label-password form-label"
-                    htmlFor="password">
-                    Password
-                </label>
-                <input
-                    className="LoginForm-input-password col-9 form-control-lg"
-                    name="password"
-                    id="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="LoginForm-label-password form-label"
+                            htmlFor="password">
+                            <b>Password</b>
+                        </label>
+                        <input
+                            className="LoginForm-input-password form-control"
+                            name="password"
+                            id="password"
+                            type="password"
+                            value={formData.password}
+                            onChange={handleChange} />
+                    </div>
 
-                <button
-                    className="btn btn-lg btn-primary LoginForm-btn ms-2"
-                    type="submit"
-                    onClick={handleSubmit}>
-                    Submit
-                </button>
-            </form>
-        </div>
+                    <div>
+                        {errors && <Alert errors={errors} />}
+                    </div>
+
+                    <button
+                        className="form-control btn btn-primary LoginForm-btn"
+                        type="submit"
+                        onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div >
     );
 }
 

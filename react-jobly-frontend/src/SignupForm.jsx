@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Alert from "./Alert";
 
 /**
  * SignupForm
@@ -10,11 +11,11 @@ import { useState } from "react";
  *  - handleSave()
  *
  *
- * TODO: -> SignupForm
+ * RoutesList -> SignupForm
  *
  */
 
-function SignupForm({ handleSave }) {
+function SignupForm({ handleSave, errors }) {
     console.log("Rendered SignupForm");
 
     const [formData, setFormData] = useState({
@@ -41,79 +42,95 @@ function SignupForm({ handleSave }) {
     }
 
     return (
-        <div>
-            <h3>Sign Up</h3>
-            <form className="SignupForm-form my-3">
+        <div className="container col-9">
+            <h3 className="mt-4">Sign Up</h3>
+            <div className="card p-3">
+                <form className="SignupForm-form">
 
-                <label
-                    className="SignupForm-label-username form-label"
-                    htmlFor="username">
-                    Username
-                </label>
-                <input
-                    className="SignupForm-input-username col-9 form-control-lg"
-                    name="username"
-                    id="username"
-                    value={formData.username}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="SignupForm-label-username form-label"
+                            htmlFor="username">
+                            <b>Username</b>
+                        </label>
+                        <input
+                            className="SignupForm-input-username form-control"
+                            name="username"
+                            id="username"
+                            value={formData.username}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="SignupForm-label-password form-label"
-                    htmlFor="password">
-                    Password
-                </label>
-                <input
-                    className="SignupForm-input-password col-9 form-control-lg"
-                    name="password"
-                    id="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="SignupForm-label-password form-label"
+                            htmlFor="password">
+                            <b>Password</b>
+                        </label>
+                        <input
+                            className="SignupForm-input-password form-control"
+                            name="password"
+                            id="password"
+                            type="password"
+                            value={formData.password}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="SignupForm-label-firstName form-label"
-                    htmlFor="firstName">
-                    First Name
-                </label>
-                <input
-                    className="SignupForm-input-firstName col-9 form-control-lg"
-                    name="firstName"
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="SignupForm-label-firstName form-label"
+                            htmlFor="firstName">
+                            <b>First Name</b>
+                        </label>
+                        <input
+                            className="SignupForm-input-firstName form-control"
+                            name="firstName"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="SignupForm-label-lastName form-label"
-                    htmlFor="lastName">
-                    Last Name
-                </label>
-                <input
-                    className="SignupForm-input-lastName col-9 form-control-lg"
-                    name="lastName"
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="SignupForm-label-lastName form-label"
+                            htmlFor="lastName">
+                            <b>Last Name</b>
+                        </label>
+                        <input
+                            className="SignupForm-input-lastName form-control"
+                            name="lastName"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="SignupForm-label-email form-label"
-                    htmlFor="email">
-                    Email
-                </label>
-                <input
-                    className="SignupForm-input-email col-9 form-control-lg"
-                    name="email"
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="SignupForm-label-email form-label"
+                            htmlFor="email">
+                            <b>Email</b>
+                        </label>
+                        <input
+                            className="SignupForm-input-email form-control"
+                            name="email"
+                            id="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange} />
+                    </div>
 
-                <button
-                    className="btn btn-lg btn-primary SignupForm-btn ms-2"
-                    type="submit"
-                    onClick={handleSubmit}>
-                    Submit
-                </button>
-            </form>
+                    <div>
+                        {errors && <Alert errors={errors} />}
+                    </div>
+
+                    <button
+                        className="form-control btn btn-primary SignupForm-btn"
+                        type="submit"
+                        onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

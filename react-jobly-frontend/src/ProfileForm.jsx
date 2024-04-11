@@ -8,14 +8,14 @@ import { useState } from "react";
  *
  * props:
  *  - handleSave()
- *  - userData { username, firstName, lastName, email }
+ *  - errors []
  *
  *
- * TODO: -> ProfileForm
+ * RoutesList -> ProfileForm
  *
  */
 
-function ProfileForm({ handleSave, userData }) {
+function ProfileForm({ handleSave, errors }) {
     console.log("Rendered ProfileForm");
 
     const [formData, setFormData] = useState(userData);
@@ -36,66 +36,80 @@ function ProfileForm({ handleSave, userData }) {
     }
 
     return (
-        <div>
-            <h3>Profile</h3>
-            <form className="ProfileForm-form my-3">
+        <div className="container col-9">
+            <h3 className="mt-4">Profile</h3>
+            <div className="card p-3">
+                <form className="ProfileForm-form">
 
-                <label
-                    className="ProfileForm-label-username form-label"
-                    htmlFor="username">
-                    Username
-                </label>
-                <input
-                    className="ProfileForm-input-username col-9 form-control-lg"
-                    name="username"
-                    id="username"
-                    disabled={true}
-                    value={formData.username}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="ProfileForm-label-username form-label"
+                            htmlFor="username">
+                            <b>Username</b>
+                        </label>
+                        <input
+                            className="ProfileForm-input-username form-control"
+                            name="username"
+                            id="username"
+                            disabled={true}
+                            value={formData.username}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="ProfileForm-label-firstName form-label"
-                    htmlFor="firstName">
-                    First Name
-                </label>
-                <input
-                    className="ProfileForm-input-firstName col-9 form-control-lg"
-                    name="firstName"
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="ProfileForm-label-firstName form-label"
+                            htmlFor="firstName">
+                            <b>First Name</b>
+                        </label>
+                        <input
+                            className="ProfileForm-input-firstName form-control"
+                            name="firstName"
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="ProfileForm-label-lastName form-label"
-                    htmlFor="lastName">
-                    Last Name
-                </label>
-                <input
-                    className="ProfileForm-input-lastName col-9 form-control-lg"
-                    name="lastName"
-                    id="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="ProfileForm-label-lastName form-label"
+                            htmlFor="lastName">
+                            <b>Last Name</b>
+                        </label>
+                        <input
+                            className="ProfileForm-input-lastName form-control"
+                            name="lastName"
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange} />
+                    </div>
 
-                <label
-                    className="ProfileForm-label-email form-label"
-                    htmlFor="email">
-                    Email
-                </label>
-                <input
-                    className="ProfileForm-input-email col-9 form-control-lg"
-                    name="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange} />
+                    <div className="mb-3">
+                        <label
+                            className="ProfileForm-label-email form-label"
+                            htmlFor="email">
+                            <b>Email</b>
+                        </label>
+                        <input
+                            className="ProfileForm-input-email form-control"
+                            name="email"
+                            id="email"
+                            value={formData.email}
+                            onChange={handleChange} />
+                    </div>
 
-                <button
-                    className="btn btn-lg btn-primary ProfileForm-btn ms-2"
-                    type="submit"
-                    onClick={handleSubmit}>
-                    Save Changes
-                </button>
-            </form>
+                    <div>
+                        {errors && <Alert errors={errors} />}
+                    </div>
+
+                    <button
+                        className="form-control btn btn-primary ProfileForm-btn"
+                        type="submit"
+                        onClick={handleSubmit}>
+                        Save Changes
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

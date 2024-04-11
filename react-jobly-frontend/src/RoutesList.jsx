@@ -15,7 +15,8 @@ import LoginForm from "./LoginForm";
  *
  * props: none
  *
- * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage, NotFound}
+ * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage,
+ *                      NotFound, ProfileForm, SignupForm, LoginForm}
  *
  */
 
@@ -27,7 +28,7 @@ function RoutesList({ handleLogin, handleSignup, errors }) {
             <Route path="/companies" element={<CompanyList />} />
             <Route path="/companies/:handle" element={<CompanyDetail />} />
             <Route path="/jobs" element={<JobList />} />
-            <Route path="/profile" element={<ProfileForm />} />
+            <Route path="/profile" element={<ProfileForm errors={errors}/>} />
             <Route path="/login" element={
                 <LoginForm handleSave={handleLogin} errors={errors} />} />
             <Route path="/signup" element={
