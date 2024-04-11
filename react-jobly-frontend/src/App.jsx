@@ -5,8 +5,9 @@ import Navigation from './Navigation';
 import { useEffect, useState } from 'react';
 import userContext from "./userContext";
 import JoblyApi from './api';
+import { decodeToken } from 'react-jwt';
 
-const EMPTY_CURR_USER = { username: null, firstName: null, lastName: null, email: null, isAdmin: null };
+//const EMPTY_CURR_USER = { username: null, firstName: null, lastName: null, email: null, isAdmin: null };
 
 
 /** Component for entire page.
@@ -22,7 +23,7 @@ const EMPTY_CURR_USER = { username: null, firstName: null, lastName: null, email
 
 function App() {
     const [token, setToken] = useState(null);
-    const [currUser, setCurrUser] = useState(EMPTY_CURR_USER);
+    const [currUser, setCurrUser] = useState(null);
     const [errors, setErrors] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     console.log("Rendered App");
@@ -39,9 +40,6 @@ function App() {
         setIsLoading(true);
         try {
             token = await JoblyApi.login(formData);
-            setCurrUser(curr => (
-                { ...curr, username: formData.username }
-            ));
             setToken(token);
             JoblyApi.token = token;
         } catch (error) {
@@ -59,9 +57,6 @@ function App() {
         setIsLoading(true);
         try {
             token = await JoblyApi.signup(formData);
-            setCurrUser(curr => (
-                { ...curr, username: formData.username }
-            ));
             setToken(token);
             JoblyApi.token = token;
         } catch (error) {
@@ -74,9 +69,10 @@ function App() {
     useEffect(function fetchUserDataUponValidToken() {
         setIsLoading(true);
         async function fetchUserData() {
+            const {username}  = decodeToken(token);
             let userData;
             try {
-                userData = await JoblyApi.getUser(currUser.username);
+                userData = await JoblyApi.getUser(username);
                 delete userData.jobs;
                 setCurrUser(userData);
             } catch (errors) {
@@ -84,16 +80,21 @@ function App() {
             }
         }
         setIsLoading(false);
-        if(currUser.username !== null) fetchUserData();
+        if(token !== null) fetchUserData();
     }, [token]);
+
+    function handleLogout(){
+        setToken(null);
+        setCurrUser(null);
+    }
 
     if (isLoading) return <i>Loading...</i>;
 
     return (
         <div className="App">
-            <userContext.Provider value={{ user: currUser }}>
+            <userContext.Provider value={{ currUser: currUser }}>
                 <BrowserRouter>
-                    <Navigation />
+                    <Navigation logout={handleLogout}/>
                     <div>
                         <RoutesList
                             handleLogin={handleLogin}
