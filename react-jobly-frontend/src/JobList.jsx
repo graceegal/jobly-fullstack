@@ -2,6 +2,7 @@ import JobCardList from "./JobCardList";
 import SearchForm from "./SearchForm";
 import { useState, useEffect } from "react";
 import JoblyApi from "./api";
+import Loading from "./Loading";
 
 /**
  * JobList
@@ -47,7 +48,7 @@ function JobList() {
         setSearchTerm(searchTerm);
     }
 
-    if (jobs.isLoading) return <i>Loading...</i>;
+    if (jobs.isLoading) return <Loading />;
 
     return (
         <div className="JobList col-md-8 offset-md-2">

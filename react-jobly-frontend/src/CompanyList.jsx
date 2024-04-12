@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import JoblyApi from "./api";
 import CompanyCard from "./CompanyCard";
 import SearchForm from "./SearchForm";
+import Loading from "./Loading";
 
 /**
  * CompanyList
@@ -52,7 +53,7 @@ function CompanyList() {
         setSearchTerm(searchTerm);
     }
 
-    if (companies.isLoading) return <i>Loading...</i>;
+    if (companies.isLoading) return <Loading />;
 
     return (
         <div className="CompanyList col-md-8 offset-md-2">

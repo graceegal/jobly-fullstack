@@ -3,6 +3,7 @@ import JobCardList from "./JobCardList";
 import { useParams } from "react-router-dom";
 import JoblyApi from "./api";
 import NotFound from "./NotFound";
+import Loading from "./Loading";
 
 /**
  * CompanyDetail
@@ -47,7 +48,7 @@ function CompanyDetail() {
         return <NotFound message="Company not found."/>;
     }
 
-    if (company.isLoading) return <i>Loading...</i>;
+    if (company.isLoading) return <Loading />;
 
     return (
         <div className="col-md-8 offset-md-2 pt-5">

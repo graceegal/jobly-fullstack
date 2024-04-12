@@ -10,11 +10,11 @@
  * { ProfileForm, LoginForm, SignupForm } -> Alert
  */
 
-function Alert ({ errors }) {
+function Alert ({ msgs, type = "danger" }) {
     return (
-        <div className="alert alert-danger" role="alert">
-            {errors.map((err, idx) => (
-                <p key={idx} className="alert-msg mb-0 small">{err}</p>
+        <div className={`alert alert-${type}`} role="alert">
+            {msgs.map((msg, idx) => (
+                <p key={idx} className="alert-msg mb-0 small">{msg}</p>
             ))}
         </div>
     );

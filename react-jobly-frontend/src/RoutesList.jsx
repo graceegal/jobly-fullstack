@@ -23,7 +23,7 @@ import LoginForm from "./LoginForm";
  *
  */
 
-function RoutesList({ login, signup }) {
+function RoutesList({ login, signup, updateUserData }) {
     console.log("Rendered RoutesList");
 
     const { currUser } = useContext(userContext);
@@ -36,7 +36,7 @@ function RoutesList({ login, signup }) {
                     < Route path = "/companies" element = {< CompanyList />} />
                     < Route path = "/companies/:handle" element = {< CompanyDetail />} />
                     < Route path = "/jobs" element = {< JobList />} />
-                    < Route path = "/profile" element = {< ProfileForm />} />
+                    < Route path = "/profile" element = {< ProfileForm updateUserData={updateUserData}/>} />
                     < Route path = "/login" element = {<Navigate to="/profile"/>} />
                     < Route path = "/signup" element = {<Navigate to="/profile"/>}/>
                 </Routes >

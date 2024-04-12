@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import userContext from "./userContext";
 import JoblyApi from './api';
 import { decodeToken } from 'react-jwt';
+import Loading from './Loading';
 
 /** Component for entire page.
  *
@@ -81,7 +82,14 @@ function App() {
     localStorage.removeItem("token");
   }
 
-  if (currUser.isLoading) return <i>Loading...</i>;
+  /** updates user information and updates user state */
+  async function updateUserData(formData) {
+    const {username, firstName, lastName, email} = formData;
+    const updatedUserData = await JoblyApi.updateUser(username, {firstName, lastName, email});
+    setCurrUser(curr => ({...curr, data:{ ...curr.data, ...updatedUserData}}));
+  }
+
+  if (currUser.isLoading) return <Loading />;
 
   return (
     <div className="App">
@@ -91,7 +99,8 @@ function App() {
           <div>
             <RoutesList
               login={login}
-              signup={signup} />
+              signup={signup}
+              updateUserData={updateUserData} />
           </div>
         </BrowserRouter>
       </userContext.Provider>

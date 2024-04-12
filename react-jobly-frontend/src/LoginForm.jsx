@@ -15,7 +15,7 @@ import Alert from "./Alert";
  * RoutesList -> LoginForm
  *
  */
-//TODO: empty array for errors (think about it)
+
 function LoginForm({ login }) {
     console.log("Rendered LoginForm");
 
@@ -85,7 +85,7 @@ function LoginForm({ login }) {
                     </div>
 
                     <div>
-                        {errors && <Alert errors={errors} />}
+                        {errors && <Alert msgs={errors} />}
                     </div>
 
                     <button

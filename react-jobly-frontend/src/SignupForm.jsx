@@ -7,9 +7,10 @@ import Alert from "./Alert";
  *
  * state:
  *  - formData { username, password, firstName, lastName, email }
+ *  - errors []
  *
  * props:
- *  - handleSave()
+ *  - signup()
  *
  *
  * RoutesList -> SignupForm
@@ -131,7 +132,7 @@ function SignupForm({ signup }) {
                     </div>
 
                     <div>
-                        {errors && <Alert errors={errors} />}
+                        {errors && <Alert msgs={errors} />}
                     </div>
 
                     <button

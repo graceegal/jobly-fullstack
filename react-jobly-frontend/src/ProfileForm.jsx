@@ -1,24 +1,31 @@
 import { useState } from "react";
+import { useContext } from "react";
+import userContext from "./userContext";
+import Alert from "./Alert";
 
 /**
  * ProfileForm
  *
  * state:
  *  - formData { username, firstName, lastName, email }
+ *  - messages {[msgs], "type"}
  *
  * props:
- *  - handleSave()
- *  - errors []
+ *  - updateUserData()
  *
  *
  * RoutesList -> ProfileForm
  *
  */
 
-function ProfileForm({ handleSave, errors }) {
+function ProfileForm({ updateUserData }) {
     console.log("Rendered ProfileForm");
 
-    const [formData, setFormData] = useState(userData);
+    const {currUser} = useContext(userContext);
+    const {username, firstName, lastName, email} = currUser
+
+    const [formData, setFormData] = useState({username, firstName, lastName, email});
+    const [messages, setMessages] = useState({msgs: [], type: null});
 
     /** update form inputs */
     function handleChange(evt) {
@@ -29,17 +36,22 @@ function ProfileForm({ handleSave, errors }) {
         }));
     }
 
-    /** call parent function and show alert for update successful */
-    function handleSubmit(evt) {
+    /** calls parent function to update user data */
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        handleSave(formData);
+        try{
+            await updateUserData(formData);
+            setMessages({msgs:["Updated successfully!"], type:"success"});
+        } catch(errors) {
+            setMessages({msgs: errors, type: "danger"});
+        }
     }
 
     return (
         <div className="container col-6 offset-3">
             <h3 className="mt-4">Profile</h3>
             <div className="card p-3">
-                <form className="ProfileForm-form">
+                <form className="ProfileForm-form" onSubmit={handleSubmit}>
 
                     <div className="mb-3">
                         <label
@@ -99,13 +111,13 @@ function ProfileForm({ handleSave, errors }) {
                     </div>
 
                     <div>
-                        {errors && <Alert errors={errors} />}
+                        {messages.msgs.length > 0 &&
+                        <Alert msgs={messages.msgs} type={messages.type} />}
                     </div>
 
                     <button
                         className="form-control btn btn-primary ProfileForm-btn"
-                        type="submit"
-                        onClick={handleSubmit}>
+                        type="submit">
                         Save Changes
                     </button>
                 </form>
