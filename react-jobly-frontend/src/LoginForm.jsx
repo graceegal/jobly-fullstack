@@ -15,7 +15,7 @@ import Alert from "./Alert";
  * RoutesList -> LoginForm
  *
  */
-
+//TODO: empty array for errors (think about it)
 function LoginForm({ handleSave }) {
     console.log("Rendered LoginForm");
 

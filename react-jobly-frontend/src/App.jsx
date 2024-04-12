@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import userContext from "./userContext";
 import JoblyApi from './api';
 import { decodeToken } from 'react-jwt';
-
+//TODO: jwt-decode
 /** Component for entire page.
- *
+ *TODO: move
  * Props: token
  *        currUser {username, firstName, lastName, email, isAdmin}
  *
@@ -18,6 +18,7 @@ import { decodeToken } from 'react-jwt';
  *
 */
 //TODO: isLoading?
+//TODO: state, useEffects, other stuff
 
 function App() {
     const [token, setToken] = useState(null);
@@ -43,7 +44,9 @@ function App() {
         setToken(token);
         JoblyApi.token = token;
     }
-
+//TODO: setToken and joblyApi.token to useEffect
+//TODO: add error handling, set user back to null (as safeguard, not to display errors)
+//TODO: else {user = null}
     /** When token updates, fetch user data and set currUser */
     useEffect(function fetchUserDataUponValidToken() {
         console.log("Inside fetchUserDataUponValidToken use Effect");
@@ -61,7 +64,7 @@ function App() {
         setToken(null);
         setCurrUser(null);
     }
-
+//TODO: signup, login, logout. Also consider handleSubmit/handleSave name changes
     return (
         <div className="App">
             <userContext.Provider value={{ currUser: currUser }}>

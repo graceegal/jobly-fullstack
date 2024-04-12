@@ -28,7 +28,7 @@ function Navigation({ logout }) {
                 {currUser
                     ? <div className="right-nav d-flex">
                         <NavLink className="nav-link ms-5" to="/companies" end>Companies</NavLink>
-                        < NavLink className="nav-link ms-5" to="/jobs" end>Jobs</NavLink>
+                        <NavLink className="nav-link ms-5" to="/jobs" end>Jobs</NavLink>
                         <NavLink className="nav-link ms-5" to="/profile" end>Profile</NavLink>
                         <NavLink to="/" onClick={logout} className="nav-link ms-5">Log out {currUser.username}</NavLink>
                     </div>
