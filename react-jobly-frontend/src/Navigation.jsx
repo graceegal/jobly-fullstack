@@ -5,7 +5,7 @@ import "./Navigation.css";
 
 /** Navigation Bar.
  *
- * Props: none
+ * Props: logout()
  *
  * State: none
  *
@@ -13,7 +13,7 @@ import "./Navigation.css";
  *
 */
 
-function Navigation({logout}) {
+function Navigation({ logout }) {
     console.log("Rendered Navigation");
 
     const { currUser } = useContext(userContext);
@@ -26,16 +26,16 @@ function Navigation({logout}) {
             <div className="Navigation-home container-fluid">
                 <NavLink className="active navbar-brand" to="/" >Jobly</NavLink>
                 {currUser
-                    ?   <div className="right-nav d-flex">
-                            < NavLink className="nav-link ms-5" to="/jobs" end>Jobs</NavLink>
-                            <NavLink className="nav-link ms-5" to="/companies" end>Companies</NavLink>
-                            <NavLink className="nav-link ms-5" to="/profile" end>Profile</NavLink>
-                            <button className="nav-link ms-5" onClick={logout}>Log out {currUser.username}</button>
-                        </div>
-                    :   <div className="right-nav d-flex">
-                            <NavLink className="nav-link ms-5" to="/signup" end>Sign Up</NavLink>
-                            <NavLink className="nav-link ms-5" to="/login" end>Login</NavLink>
-                        </div>
+                    ? <div className="right-nav d-flex">
+                        <NavLink className="nav-link ms-5" to="/companies" end>Companies</NavLink>
+                        < NavLink className="nav-link ms-5" to="/jobs" end>Jobs</NavLink>
+                        <NavLink className="nav-link ms-5" to="/profile" end>Profile</NavLink>
+                        <NavLink to="/" onClick={logout} className="nav-link ms-5">Log out {currUser.username}</NavLink>
+                    </div>
+                    : <div className="right-nav d-flex">
+                        <NavLink className="nav-link ms-5" to="/login" end>Login</NavLink>
+                        <NavLink className="nav-link ms-5" to="/signup" end>Sign Up</NavLink>
+                    </div>
                 }
             </div>
         </nav >

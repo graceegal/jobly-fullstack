@@ -36,7 +36,7 @@ function ProfileForm({ handleSave, errors }) {
     }
 
     return (
-        <div className="container col-9">
+        <div className="container col-6 offset-3">
             <h3 className="mt-4">Profile</h3>
             <div className="card p-3">
                 <form className="ProfileForm-form">

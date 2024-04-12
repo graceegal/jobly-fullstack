@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 
 /**
@@ -15,9 +16,10 @@ import Alert from "./Alert";
  *
  */
 
-function SignupForm({ handleSave, errors }) {
+function SignupForm({ handleSave }) {
     console.log("Rendered SignupForm");
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -25,6 +27,7 @@ function SignupForm({ handleSave, errors }) {
         lastName: "",
         email: ""
     });
+    const [errors, setErrors] = useState(null);
 
     /** update form inputs */
     function handleChange(evt) {
@@ -35,17 +38,24 @@ function SignupForm({ handleSave, errors }) {
         }));
     }
 
-    /** call parent function and show alert */
-    function handleSubmit(evt) {
+    /** call parent component login function and navigates home if valid,
+    * otherwise updates errors state
+     */
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        handleSave(formData);
+        try {
+            await handleSave(formData);
+            navigate("/");
+        } catch (errors) {
+            setErrors(errors);
+        }
     }
 
     return (
-        <div className="container col-9">
+        <div className="container col-6 offset-3">
             <h3 className="mt-4">Sign Up</h3>
             <div className="card p-3">
-                <form className="SignupForm-form">
+                <form className="SignupForm-form" onSubmit={handleSubmit}>
 
                     <div className="mb-3">
                         <label
@@ -125,8 +135,7 @@ function SignupForm({ handleSave, errors }) {
 
                     <button
                         className="form-control btn btn-primary SignupForm-btn"
-                        type="submit"
-                        onClick={handleSubmit}>
+                        type="submit">
                         Submit
                     </button>
                 </form>

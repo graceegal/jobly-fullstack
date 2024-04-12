@@ -28,11 +28,11 @@ function RoutesList({ handleLogin, handleSignup, errors }) {
             <Route path="/companies" element={<CompanyList />} />
             <Route path="/companies/:handle" element={<CompanyDetail />} />
             <Route path="/jobs" element={<JobList />} />
-            <Route path="/profile" element={<ProfileForm errors={errors}/>} />
+            <Route path="/profile" element={<ProfileForm />} />
             <Route path="/login" element={
-                <LoginForm handleSave={handleLogin} errors={errors} />} />
+                <LoginForm handleSave={handleLogin} />} />
             <Route path="/signup" element={
-                <SignupForm handleSave={handleSignup} errors={errors} />} />
+                <SignupForm handleSave={handleSignup} />} />
             <Route path="/*" element={<NotFound />} />
         </Routes>
     );

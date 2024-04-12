@@ -7,99 +7,70 @@ import userContext from "./userContext";
 import JoblyApi from './api';
 import { decodeToken } from 'react-jwt';
 
-//const EMPTY_CURR_USER = { username: null, firstName: null, lastName: null, email: null, isAdmin: null };
-
-
 /** Component for entire page.
  *
- * Props: none
+ * Props: token
+ *        currUser {username, firstName, lastName, email, isAdmin}
  *
  * State: none
  *
  * App -> { RoutesList, Navigation }
  *
 */
-
+//TODO: isLoading?
 
 function App() {
     const [token, setToken] = useState(null);
     const [currUser, setCurrUser] = useState(null);
-    const [errors, setErrors] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     console.log("Rendered App");
     console.log("app token", token);
     console.log("app currUser", currUser);
-    console.log("app errors", errors);
 
     /** Make API call to login using user inputs from login form;
-     * update token state and currUser state with username if valid request,
-     * otherwise update errors state
+     * update token state and currUser state with username if valid request
     */
     async function handleLogin(formData) {
-        let token = null;
-        setIsLoading(true);
-        try {
-            token = await JoblyApi.login(formData);
-            setToken(token);
-            JoblyApi.token = token;
-        } catch (error) {
-            setErrors(error);
-        }
-        setIsLoading(false);
+        const token = await JoblyApi.login(formData);
+        setToken(token);
+        JoblyApi.token = token;
     }
 
     /** Make API call to signup new user using inputs from signup form;
-     * update token state and currUser state with username if valid request,
-     * otherwise update errors state
+     * update token state and currUser state with username if valid request
     */
     async function handleSignup(formData) {
-        let token = null;
-        setIsLoading(true);
-        try {
-            token = await JoblyApi.signup(formData);
-            setToken(token);
-            JoblyApi.token = token;
-        } catch (error) {
-            setErrors(error);
-        }
-        setIsLoading(false);
+        const token = await JoblyApi.signup(formData);
+        setToken(token);
+        JoblyApi.token = token;
     }
 
-    /** When token updates, fetch user data */
+    /** When token updates, fetch user data and set currUser */
     useEffect(function fetchUserDataUponValidToken() {
-        setIsLoading(true);
+        console.log("Inside fetchUserDataUponValidToken use Effect");
         async function fetchUserData() {
-            const {username}  = decodeToken(token);
-            let userData;
-            try {
-                userData = await JoblyApi.getUser(username);
-                delete userData.jobs;
-                setCurrUser(userData);
-            } catch (errors) {
-                setErrors(errors);
-            }
+            const { username } = decodeToken(token);
+            const userData = await JoblyApi.getUser(username);
+            delete userData.jobs;
+            setCurrUser(userData);
         }
-        setIsLoading(false);
-        if(token !== null) fetchUserData();
+        if (token !== null) fetchUserData();
     }, [token]);
 
-    function handleLogout(){
+    /** Clears token and currUser states */
+    function handleLogout() {
         setToken(null);
         setCurrUser(null);
     }
-
-    if (isLoading) return <i>Loading...</i>;
 
     return (
         <div className="App">
             <userContext.Provider value={{ currUser: currUser }}>
                 <BrowserRouter>
-                    <Navigation logout={handleLogout}/>
+                    <Navigation logout={handleLogout} />
                     <div>
                         <RoutesList
                             handleLogin={handleLogin}
-                            handleSignup={handleSignup}
-                            errors={errors} />
+                            handleSignup={handleSignup} />
                     </div>
                 </BrowserRouter>
             </userContext.Provider>
