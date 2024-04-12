@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import userContext from "./userContext";
 import CompanyDetail from "./CompanyDetail";
 import CompanyList from "./CompanyList";
 import JobList from "./JobList";
@@ -23,19 +25,29 @@ import LoginForm from "./LoginForm";
 
 function RoutesList({ login, signup }) {
     console.log("Rendered RoutesList");
+
+    const { currUser } = useContext(userContext);
+
     return (
-        <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/companies" element={<CompanyList />} />
-            <Route path="/companies/:handle" element={<CompanyDetail />} />
-            <Route path="/jobs" element={<JobList />} />
-            <Route path="/profile" element={<ProfileForm />} />
-            <Route path="/login" element={
-                <LoginForm login={login} />} />
-            <Route path="/signup" element={
-                <SignupForm signup={signup} />} />
-            <Route path="/*" element={<NotFound />} />
-        </Routes>
+        currUser
+            ?   <Routes>
+                    < Route path = "/" element = { < Homepage />} />
+                    < Route path = "/*" element = {<NotFound />} />
+                    < Route path = "/companies" element = {< CompanyList />} />
+                    < Route path = "/companies/:handle" element = {< CompanyDetail />} />
+                    < Route path = "/jobs" element = {< JobList />} />
+                    < Route path = "/profile" element = {< ProfileForm />} />
+                    < Route path = "/login" element = {<Navigate to="/profile"/>} />
+                    < Route path = "/signup" element = {<Navigate to="/profile"/>}/>
+                </Routes >
+            :   <Routes>
+                    <Route path="/" element={<Homepage />} />
+                    <Route path="/*" element = {<Navigate to="/"/>} />
+                    <Route path="/login" element={
+                        <LoginForm login={login} />} />
+                    <Route path="/signup" element={
+                        <SignupForm signup={signup} />} />
+                </Routes>
     );
 }
 
