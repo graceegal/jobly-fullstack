@@ -13,14 +13,15 @@ import LoginForm from "./LoginForm";
  *
  * state: none
  *
- * props: none
+ * props: login()
+ *        signup()
  *
  * App -> RoutesList -> { CompanyList, JobsList, CompanyDetail, Homepage,
  *                      NotFound, ProfileForm, SignupForm, LoginForm}
  *
  */
 
-function RoutesList({ handleLogin, handleSignup, errors }) {
+function RoutesList({ login, signup }) {
     console.log("Rendered RoutesList");
     return (
         <Routes>
@@ -30,9 +31,9 @@ function RoutesList({ handleLogin, handleSignup, errors }) {
             <Route path="/jobs" element={<JobList />} />
             <Route path="/profile" element={<ProfileForm />} />
             <Route path="/login" element={
-                <LoginForm handleSave={handleLogin} />} />
+                <LoginForm login={login} />} />
             <Route path="/signup" element={
-                <SignupForm handleSave={handleSignup} />} />
+                <SignupForm signup={signup} />} />
             <Route path="/*" element={<NotFound />} />
         </Routes>
     );

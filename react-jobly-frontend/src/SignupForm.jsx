@@ -16,10 +16,9 @@ import Alert from "./Alert";
  *
  */
 
-function SignupForm({ handleSave }) {
+function SignupForm({ signup }) {
     console.log("Rendered SignupForm");
 
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -28,6 +27,8 @@ function SignupForm({ handleSave }) {
         email: ""
     });
     const [errors, setErrors] = useState(null);
+
+    const navigate = useNavigate();
 
     /** update form inputs */
     function handleChange(evt) {
@@ -44,7 +45,7 @@ function SignupForm({ handleSave }) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-            await handleSave(formData);
+            await signup(formData);
             navigate("/");
         } catch (errors) {
             setErrors(errors);

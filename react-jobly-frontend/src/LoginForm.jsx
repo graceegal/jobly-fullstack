@@ -16,15 +16,16 @@ import Alert from "./Alert";
  *
  */
 //TODO: empty array for errors (think about it)
-function LoginForm({ handleSave }) {
+function LoginForm({ login }) {
     console.log("Rendered LoginForm");
 
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     });
     const [errors, setErrors] = useState(null);
+
+    const navigate = useNavigate();
 
     /** update form inputs */
     function handleChange(evt) {
@@ -41,7 +42,7 @@ function LoginForm({ handleSave }) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-            await handleSave(formData);
+            await login(formData);
             navigate("/");
         } catch (errors) {
             setErrors(errors);
