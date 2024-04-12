@@ -29,8 +29,8 @@ function App() {
   console.log("local storage token", localStorage.getItem("token"));
 
   /** When token updates, fetch user data and set currUser */
-  useEffect(function fetchUserDataUponValidToken() {
-    console.log("Inside fetchUserDataUponValidToken use Effect");
+  useEffect(function fetchUserDataOnTokenChange() {
+    console.log("Inside fetchUserDataOnTokenChange use Effect");
     async function fetchUserData() {
       setCurrUser(curr => ({ ...curr, isLoading: true }));
       try {
