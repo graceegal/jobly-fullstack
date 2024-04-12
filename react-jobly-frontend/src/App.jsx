@@ -11,51 +11,46 @@ import { decodeToken } from 'react-jwt';
  *
  * Props: none
  *
- * State: token
- *        currUser {username, firstName, lastName, email, isAdmin}
+ * State: currUser {username, firstName, lastName, email, isAdmin}
  *
  * App -> { RoutesList, Navigation }
  *
 */
 
-//TODO: isLoading?
-
 function App() {
-  const [token, setToken] = useState(null);
-  const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useState({data: null, isLoading: true});
 
   console.log("Rendered App");
-  console.log("app token", token);
   console.log("app currUser", currUser);
+  console.log("jobly.api token", JoblyApi.token);
+  console.log("local storage token", localStorage.getItem("token"));
 
   /** When token updates, fetch user data and set currUser */
   useEffect(function fetchUserDataUponValidToken() {
     console.log("Inside fetchUserDataUponValidToken use Effect");
     async function fetchUserData() {
       try {
-        const { username } = decodeToken(token);
-        JoblyApi.token = token;
+        const { username } = decodeToken(localStorage.getItem("token"));
+        JoblyApi.token = localStorage.getItem("token");
         const userData = await JoblyApi.getUser(username);
         delete userData.jobs;
-        setCurrUser(userData);
+        setCurrUser({data: userData, isLoading: false});
       } catch (errors) {
-        setToken(null);
+        localStorage.removeItem("token");
+        setCurrUser({currUser: null, isLoading: false});
       }
     }
-    if (token !== null) {
-      fetchUserData();
-    } else {
-      setCurrUser(null);
-      JoblyApi.token = null;
-    }
-  }, [token]);
+    if (currUser.isLoading) {
+        fetchUserData();}
+  }, [currUser]);
 
   /** Make API call to login using user inputs from login form;
    * update token state if valid request
   */
   async function login(formData) {
     const token = await JoblyApi.login(formData);
-    setToken(token);
+    localStorage.setItem("token", token);
+    setCurrUser(curr => ({...curr, isLoading: true}));
   }
 
   /** Make API call to signup new user using inputs from signup form;
@@ -63,18 +58,22 @@ function App() {
   */
   async function signup(formData) {
     const token = await JoblyApi.signup(formData);
-    setToken(token);
+    localStorage.setItem("token", token);
+    setCurrUser(curr => ({...curr, isLoading: true}));
   }
 
   /** Clears token and currUser states */
   function logout() {
-    setToken(null);
-    setCurrUser(null);
+    localStorage.removeItem("token");
+    setCurrUser({data: null, isLoading: false});
+    JoblyApi.token = null;
   }
+
+  if(currUser.isLoading) return <i>Loading...</i>;
 
   return (
     <div className="App">
-      <userContext.Provider value={{ currUser: currUser }}>
+      <userContext.Provider value={{ currUser: currUser.data }}>
         <BrowserRouter>
           <Navigation logout={logout} />
           <div>
