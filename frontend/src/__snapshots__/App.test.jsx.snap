@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <nav
+      class="Navigation navbar bg-body-tertiary"
+    >
+      <div
+        class="Navigation-home container-fluid"
+      >
+        <a
+          aria-current="page"
+          class="active navbar-brand active"
+          href="/"
+        >
+          Jobly
+        </a>
+        <div
+          class="right-nav d-flex"
+        >
+          <a
+            class="nav-link ms-5"
+            href="/login"
+          >
+            Login
+          </a>
+          <a
+            class="nav-link ms-5"
+            href="/signup"
+          >
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div>
+      <div
+        class="container"
+      >
+        <div
+          class="mt-5 text-center"
+        >
+          <h1
+            class="home-title mb-4 "
+          >
+            Jobly
+          </h1>
+          <div
+            class="home-description"
+          >
+            All the jobs in one, convenient place.
+          </div>
+          <div>
+            <a
+              class="btn btn-primary mt-2 ms-2"
+              href="/login"
+            >
+              Log in
+            </a>
+            <a
+              class="btn btn-primary mt-2 ms-2"
+              href="/signup"
+            >
+              Sign up
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
