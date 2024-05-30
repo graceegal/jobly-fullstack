@@ -41,7 +41,7 @@ To get started with Jobly, follow the steps below:
 5. Open `http://localhost:5173` in your browser.
 
 ## Testing
-Tests are run using Jest. To run the tests for both the frontend and backend, follow the steps below:
+Tests are run using Jest for the backend and Vitest for the frontend. To run the tests for both the frontend and backend, follow the steps below:
 
 ### Backend Tests
 1. Open a terminal.
